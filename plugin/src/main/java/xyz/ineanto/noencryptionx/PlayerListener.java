@@ -1,31 +1,31 @@
 package xyz.ineanto.noencryptionx;
 
 import io.netty.channel.*;
-import xyz.ineanto.noencryptionx.impl.Compatibility;
-import xyz.ineanto.noencryptionx.config.ConfigurationHandler;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import xyz.ineanto.noencryptionx.compatibility.Compatibility;
+import xyz.ineanto.noencryptionx.config.ConfigurationHandler;
 
 public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerJoin (PlayerJoinEvent e) {
+    public void onPlayerJoin(PlayerJoinEvent e) throws NoSuchFieldException, IllegalAccessException {
         final Player player = e.getPlayer();
-        final Channel channel = Compatibility.COMPATIBLE_PLAYER.getChannel(player);
+        final Channel channel = Compatibility.PLAYER_CHANNEL.getChannel(player);
         final ChannelPipeline pipeline = channel.pipeline();
         final ChannelDuplexHandler handler = new ChannelDuplexHandler() {
             @Override
             public void channelRead(ChannelHandlerContext channelHandlerContext, Object packet) throws Exception {
-                Object newPacket = Compatibility.COMPATIBLE_PACKET_LISTENER.readPacket(channelHandlerContext, packet);
+                Object newPacket = Compatibility.PACKET_CHANNEL_HANDLER.readPacket(channelHandlerContext, packet);
                 super.channelRead(channelHandlerContext, newPacket);
             }
 
             @Override
             public void write(ChannelHandlerContext channelHandlerContext, Object packet, ChannelPromise promise) throws Exception {
-                Object newPacket = Compatibility.COMPATIBLE_PACKET_LISTENER.writePacket(channelHandlerContext, packet, promise);
+                Object newPacket = Compatibility.PACKET_CHANNEL_HANDLER.writePacket(channelHandlerContext, packet, promise, true);
                 super.write(channelHandlerContext, newPacket, promise);
             }
         };
@@ -46,9 +46,9 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerQuit (PlayerQuitEvent e) {
+    public void onPlayerQuit(PlayerQuitEvent e) throws NoSuchFieldException, IllegalAccessException {
         final Player player = e.getPlayer();
-        final Channel channel = Compatibility.COMPATIBLE_PLAYER.getChannel(player);
+        final Channel channel = Compatibility.PLAYER_CHANNEL.getChannel(player);
 
         try {
             channel.eventLoop().submit(() -> channel.pipeline().remove(NoEncryptionX.playerHandlerName));

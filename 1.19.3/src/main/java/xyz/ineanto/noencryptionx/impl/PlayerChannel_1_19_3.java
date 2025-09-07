@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class CompatiblePlayer {
+public class PlayerChannel_1_19_3 {
     public Channel getChannel(Player player) {
         return ((CraftPlayer) player).getHandle().connection.connection.channel;
     }

@@ -2,6 +2,8 @@
 paper-userdev = { id = "io.papermc.paperweight.userdev", version = "2.0.0-beta.18" }
 
 [versions]
+lombok = "1.18.40"
+
 netty-transport = "4.1.90.Final"
 
 paper-api-one-nineteen = "1.19-R0.1-SNAPSHOT"
@@ -21,6 +23,8 @@ spigot-one-twenty-one = "1.20.1-R0.1-SNAPSHOT"
 spigot-api-one-twentyone-eight = "1.21.8-R0.1-SNAPSHOT"
 
 [libraries]
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+
 netty-transport = { module = "io.netty:netty-transport", version.ref = "netty-transport" }
 
 paper-api-one-nineteen = { module = "io.papermc.paper:paper-api", version.ref = "paper-api-one-nineteen" }

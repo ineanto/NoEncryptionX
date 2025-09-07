@@ -2,9 +2,8 @@ package xyz.ineanto.noencryptionx.impl;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
+import xyz.ineanto.noencryptionx.compatibility.PacketChannelHandler;
 import xyz.ineanto.noencryptionx.config.ConfigurationHandler;
-import xyz.ineanto.noencryptionx.utils.InternalMetrics;
-import xyz.ineanto.noencryptionx.utils.Metrics;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundPlayerChatPacket;
@@ -16,16 +15,14 @@ import org.bukkit.craftbukkit.v1_20_R1.util.CraftChatMessage;
 
 import java.util.Optional;
 
-public class CompatiblePacketListener {
-    public Object readPacket(ChannelHandlerContext channelHandlerContext, Object packet) throws Exception { return packet; }
-
+public class PacketChannelHandler_1_20_1 implements PacketChannelHandler {
     public Object writePacket(ChannelHandlerContext channelHandlerContext, Object packet, ChannelPromise promise, boolean playerPipe) throws Exception {
         if (playerPipe) {
             if (packet instanceof final ClientboundPlayerChatPacket clientboundPlayerChatPacket) {
                 final Component chatMessage = Optional.ofNullable(clientboundPlayerChatPacket.unsignedContent()).orElse(Component.literal(clientboundPlayerChatPacket.body().content()));
                 final Optional<ChatType.Bound> chatType = clientboundPlayerChatPacket.chatType().resolve(((CraftServer) Bukkit.getServer()).getServer().registryAccess());
 
-                InternalMetrics.insertChart(new Metrics.SingleLineChart("strippedMessages", () -> 1));
+                //InternalMetrics.insertChart(new Metrics.SingleLineChart("strippedMessages", () -> 1));
 
                 return new ClientboundSystemChatPacket(
                         chatType.orElseThrow().decorate(chatMessage),
@@ -45,8 +42,6 @@ public class CompatiblePacketListener {
             }
         } else {
             if (packet instanceof final ClientboundServerDataPacket clientboundServerDataPacket) {
-                InternalMetrics.insertChart(new Metrics.SingleLineChart("popupsBlocked", () -> 1));
-
                 if (ConfigurationHandler.Config.getDisableBanner()) {
                     // recreate a new packet
                     return new ClientboundServerDataPacket(

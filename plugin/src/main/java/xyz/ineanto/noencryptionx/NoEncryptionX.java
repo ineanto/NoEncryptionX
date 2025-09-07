@@ -6,7 +6,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 import xyz.ineanto.noencryptionx.commands.MainCommand;
 import xyz.ineanto.noencryptionx.config.ConfigurationHandler;
-import xyz.ineanto.noencryptionx.impl.Compatibility;
 import xyz.ineanto.noencryptionx.utils.FileMgmt;
 import xyz.ineanto.noencryptionx.utils.InternalMetrics;
 import xyz.ineanto.noencryptionx.utils.PlayerChannelGC;

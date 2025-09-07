@@ -19,6 +19,9 @@ val libs = extensions.getByType(VersionCatalogsExtension::class.java).named("lib
 dependencies {
     compileOnly(libs.findLibrary("spigot-api-one-twentyone-eight").get())
     compileOnly(libs.findLibrary("netty-transport").get())
+
+    compileOnly(libs.findLibrary("lombok").get())
+    annotationProcessor(libs.findLibrary("lombok").get())
 }
 
 publishing {

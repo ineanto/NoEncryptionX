@@ -5,8 +5,8 @@ import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_20_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_19_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
@@ -14,15 +14,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class CompatiblePlayer {
+public class PlayerChannel_1_19_4 {
     public Channel getChannel(Player player) throws NoSuchFieldException, IllegalAccessException {
         ServerPlayer playerHandle = ((CraftPlayer) player).getHandle();
         ServerGamePacketListenerImpl nmsPacketListener = playerHandle.connection;
 
         /*
-         * 1.20.1 mappings:
+         * 1.19.4 mappings:
          *
-         * net.minecraft.server.network.ServerGamePacketListenerImpl -> aiy:
+         * net.minecraft.server.network.ServerGamePacketListenerImpl -> aji:
          *     net.minecraft.network.Connection connection -> h
          */
         Field connectionField = nmsPacketListener.getClass().getDeclaredField("h");
@@ -44,9 +44,9 @@ public class CompatiblePlayer {
 
         try {
             /*
-             * 1.20.1 mappings:
+             * 1.19.4 mappings:
              *
-             * net.minecraft.server.network.ServerGamePacketListenerImpl -> aiy:
+             * net.minecraft.server.network.ServerGamePacketListenerImpl -> aji:
              *     net.minecraft.network.Connection connection -> h
              */
 
