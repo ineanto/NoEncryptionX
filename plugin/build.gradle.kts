@@ -14,3 +14,14 @@ dependencies {
         implementation(project(":$it"))
     }
 }
+
+tasks {
+    processResources {
+        from("src/main/resources")
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        filesMatching("*.yml") {
+            expand("version" to version)
+        }
+    }
+
+}

@@ -1,4 +1,35 @@
 name: NoEncryptionX
-version: '6.0'
+version: ${version}
 main: xyz.ineanto.noencryptionx.NoEncryptionX
-api-version: '1.21'
+api-version: 1.21
+authors: [ Ineanto ]
+description: Strips signatures from player messages
+website: https://github.com/Doclic/NoEncryption
+
+commands:
+  noencryption:
+    aliases: [ne]
+    usage: /<command> help
+    permission: noencryption.usecommand
+
+permissions:
+  noencryption.*:
+    default: op
+    children:
+      - noencryption.usecommand
+      - noencryption.command.*
+
+  noencryption.usecommand:
+    default: true
+
+  noencryption.command.*:
+    default: op
+    children:
+      - noencryption.command.suppressnotices
+      - noencryption.command.checkforupdates
+
+  noencryption.command.suppressnotices:
+    default: op
+
+  noencryption.command.checkforupdates:
+    default: op
