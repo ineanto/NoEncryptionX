@@ -115,3 +115,9 @@ run/
 # Draft release workflow
 /.github/workflows/scripts/draft-release-markdown-generator/output.md
 /.github/workflows/scripts/draft-release-markdown-generator/temp
+
+# Gradle build
+build
+build-logic/build
+plugin/build
+.gradle

@@ -1,0 +1,40 @@
+[plugins]
+paper-userdev = { id = "io.papermc.paperweight.userdev", version = "2.0.0-beta.18" }
+
+[versions]
+netty-transport = "4.1.90.Final"
+
+paper-api-one-nineteen = "1.19-R0.1-SNAPSHOT"
+paper-api-one-nineteen-one = "1.19.1-R0.1-SNAPSHOT"
+paper-api-one-nineteen-two = "1.19.2-R0.1-SNAPSHOT"
+paper-api-one-nineteen-three = "1.19.3-R0.1-SNAPSHOT"
+paper-api-one-nineteen-four = "1.19.4-R0.1-SNAPSHOT"
+paper-api-one-twenty-one = "1.20.1-R0.1-SNAPSHOT"
+
+spigot-one-nineteen = "1.19-R0.1-SNAPSHOT"
+spigot-one-nineteen-one = "1.19.1-R0.1-SNAPSHOT"
+spigot-one-nineteen-two = "1.19.2-R0.1-SNAPSHOT"
+spigot-one-nineteen-three = "1.19.3-R0.1-SNAPSHOT"
+spigot-one-nineteen-four = "1.19.4-R0.1-SNAPSHOT"
+spigot-one-twenty-one = "1.20.1-R0.1-SNAPSHOT"
+
+spigot-api-one-twentyone-eight = "1.21.8-R0.1-SNAPSHOT"
+
+[libraries]
+netty-transport = { module = "io.netty:netty-transport", version.ref = "netty-transport" }
+
+paper-api-one-nineteen = { module = "io.papermc.paper:paper-api", version.ref = "paper-api-one-nineteen" }
+paper-api-one-nineteen-one = { module = "io.papermc.paper:paper-api", version.ref = "paper-api-one-nineteen-one" }
+paper-api-one-nineteen-two = { module = "io.papermc.paper:paper-api", version.ref = "paper-api-one-nineteen-two" }
+paper-api-one-nineteen-three = { module = "io.papermc.paper:paper-api", version.ref = "paper-api-one-nineteen-three" }
+paper-api-one-nineteen-four = { module = "io.papermc.paper:paper-api", version.ref = "paper-api-one-nineteen-four" }
+paper-api-one-twenty-one = { module = "io.papermc.paper:paper-api", version.ref = "paper-api-one-twenty-one" }
+
+spigot-one-nineteen = { module = "org.spigotmc:spigot", version.ref = "spigot-one-nineteen" }
+spigot-one-nineteen-one = { module = "org.spigotmc:spigot", version.ref = "spigot-one-nineteen-one" }
+spigot-one-nineteen-two = { module = "org.spigotmc:spigot", version.ref = "spigot-one-nineteen-two" }
+spigot-one-nineteen-three = { module = "org.spigotmc:spigot", version.ref = "spigot-one-nineteen-three" }
+spigot-one-nineteen-four = { module = "org.spigotmc:spigot", version.ref = "spigot-one-nineteen-four" }
+spigot-one-twenty-one = { module = "org.spigotmc:spigot", version.ref = "spigot-one-twenty-one" }
+
+spigot-api-one-twentyone-eight = { module = "org.spigotmc:spigot-api", version.ref = "spigot-api-one-twentyone-eight" }

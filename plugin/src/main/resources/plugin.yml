@@ -1,0 +1,4 @@
+name: NoEncryptionX
+version: '6.0'
+main: xyz.ineanto.noencryptionx.NoEncryptionX
+api-version: '1.21'
