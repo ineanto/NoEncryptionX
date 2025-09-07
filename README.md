@@ -88,7 +88,7 @@ After cloning NoEncryptionX, you can build the plugin through Maven using the fo
 
 1. Open the cloned NoEncryptionX folder in a terminal window.
 2. After the above command completes, run the following command to build the JAR files:
-   <code>mvn clean package</code>
+   <code>./gradlew build</code>
 3. After the above command completes, a new <code>target</code> folder will be created.
 4. Inside the <code>build/libs</code> folder will be multiple JAR files.
    The JAR file that should be used is <code>
