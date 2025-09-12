@@ -19,12 +19,6 @@ public class PlayerJoinListener implements Listener {
         final ChannelPipeline pipeline = channel.pipeline();
         final ChannelDuplexHandler handler = new ChannelDuplexHandler() {
             @Override
-            public void channelRead(ChannelHandlerContext channelHandlerContext, Object packet) throws Exception {
-                Object newPacket = compatibility.getPacketChannelHandler().readPacket(channelHandlerContext, packet);
-                super.channelRead(channelHandlerContext, newPacket);
-            }
-
-            @Override
             public void write(ChannelHandlerContext channelHandlerContext, Object packet, ChannelPromise promise) throws Exception {
                 Object newPacket = compatibility.getPacketChannelHandler().writePacket(channelHandlerContext, packet, promise, true);
                 super.write(channelHandlerContext, newPacket, promise);

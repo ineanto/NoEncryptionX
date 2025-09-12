@@ -12,10 +12,11 @@ public class TaskManager {
     private final NoEncryptionX instance;
 
     private final Collection<BukkitTask> tasks = Collections.synchronizedList(new ArrayList<>());
+
     private final UnusedPlayerChannelCollector unusedPlayerChannelCollector;
     private final UnusedServerChannelCollector unusedServerChannelCollector;
 
-    private final long COLLECTION_INTERVAL = 20L * 60 * 30; // 30 minutes
+    private final long collectionInterval = 20L * 60 * 30; // 30 minutes
 
     public TaskManager(NoEncryptionX instance) {
         this.instance = instance;
@@ -24,14 +25,15 @@ public class TaskManager {
     }
 
     public void startTasks() {
-        final BukkitTask unusedPlayerChannelCollectorTask = Bukkit.getScheduler().runTaskTimerAsynchronously(instance, unusedPlayerChannelCollector::collect, COLLECTION_INTERVAL, COLLECTION_INTERVAL);
-        final BukkitTask unusedServerChannelCollectorTask = Bukkit.getScheduler().runTaskTimerAsynchronously(instance, unusedServerChannelCollector::collect, COLLECTION_INTERVAL, COLLECTION_INTERVAL);
+        final BukkitTask unusedPlayerChannelCollectorTask = Bukkit.getScheduler().runTaskTimerAsynchronously(instance, unusedPlayerChannelCollector::collect, collectionInterval, collectionInterval);
+        final BukkitTask unusedServerChannelCollectorTask = Bukkit.getScheduler().runTaskTimerAsynchronously(instance, unusedServerChannelCollector::collect, collectionInterval, collectionInterval);
 
         tasks.add(unusedPlayerChannelCollectorTask);
         tasks.add(unusedServerChannelCollectorTask);
     }
 
     public void stopTasks() {
-        // TODO (Ineanto, 08/09/2025): stop tasks
+        tasks.forEach(BukkitTask::cancel);
+        tasks.clear();
     }
 }

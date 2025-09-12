@@ -13,7 +13,7 @@ public class CompatibilityProvider {
     @Getter
     private PlayerChannel playerChannel;
 
-    private final Logger logger = Logger.getLogger("CompatibilityProvider");
+    private final Logger logger = Logger.getLogger("NoEncryptionX/Compat");
 
     @Getter
     private final List<String> supportedVersions = List.of(
