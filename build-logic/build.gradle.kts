@@ -11,6 +11,11 @@ dependencies {
     implementation(plugin(libs.plugins.paper.userdev))
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
 
 // Helper function that transforms a Gradle Plugin alias from a
 // Version Catalog into a valid dependency notation for buildSrc

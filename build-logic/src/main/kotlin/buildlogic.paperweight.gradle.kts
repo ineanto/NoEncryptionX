@@ -1,3 +1,4 @@
+
 import gradle.kotlin.dsl.accessors._f2a9aebd8c5798d32ebc7e5891a02610.annotationProcessor
 import gradle.kotlin.dsl.accessors._f2a9aebd8c5798d32ebc7e5891a02610.compileOnly
 
@@ -11,9 +12,11 @@ plugins {
 group = "xyz.ineanto"
 version = "6.0"
 
-// Set Java 17 for all projects
-java.sourceCompatibility = JavaVersion.VERSION_17
-java.targetCompatibility = JavaVersion.VERSION_17
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
 
 repositories {
     mavenLocal()

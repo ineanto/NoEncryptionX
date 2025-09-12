@@ -1,98 +1,107 @@
 package xyz.ineanto.noencryptionx;
 
 import io.netty.channel.Channel;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 import xyz.ineanto.noencryptionx.commands.MainCommand;
-import xyz.ineanto.noencryptionx.config.ConfigurationHandler;
-import xyz.ineanto.noencryptionx.utils.FileMgmt;
-import xyz.ineanto.noencryptionx.utils.InternalMetrics;
-import xyz.ineanto.noencryptionx.utils.PlayerChannelGC;
-import xyz.ineanto.noencryptionx.utils.updates.UpdateChecker;
+import xyz.ineanto.noencryptionx.compatibility.CompatibilityProvider;
+import xyz.ineanto.noencryptionx.config.FileMgmt;
+import xyz.ineanto.noencryptionx.event.PlayerJoinListener;
+import xyz.ineanto.noencryptionx.event.PlayerQuitListener;
+import xyz.ineanto.noencryptionx.task.TaskManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Logger;
+import java.util.*;
 
 public final class NoEncryptionX extends JavaPlugin {
-    private static NoEncryptionX plugin;
-    private static Logger logger;
-    public static List<Channel> activePlayerChannels;
+    @Getter
+    private static NoEncryptionX instance;
 
-    private static BukkitTask playerGarbageCollectorTask;
+    @Getter
+    private final CompatibilityProvider compatibility = new CompatibilityProvider();
+    private final TaskManager taskManager = new TaskManager(this);
+
+    public static Map<UUID, Channel> serverChannels;
+    public static List<Channel> activePlayerChannels;
+    public static List<Channel> activeServerChannels;
 
     public static final String playerHandlerName = "noencryption_playerlevel";
+    public static final String serverHandlerName = "noencryption_serverlevel";
 
     @Override
     public void onEnable() {
-        plugin = this;
-        logger = getLogger();
+        instance = this;
+
         activePlayerChannels = Collections.unmodifiableList(new ArrayList<>());
+        activeServerChannels = Collections.unmodifiableList(new ArrayList<>());
 
-        if (Compatibility.SERVER_COMPATIBLE) {
+        compatibility.setup();
+
+        if (true) { // TODO (Ineanto, 08/09/2025):  check if server is compatible
             FileMgmt.initialize(this);
-            ConfigurationHandler.initialize(this);
-
-            if (!ConfigurationHandler.loadSettings()) {
-                logger().severe("Configuration could not be loaded, disabling...");
-                Bukkit.getPluginManager().disablePlugin(this);
-                return;
-            }
-
-            ConfigurationHandler.Config.printChanges();
-            ConfigurationHandler.Notices.loadAndPrintChanges();
+//            Configuration.initialize(this);
+//
+//            if (!Configuration.loadSettings()) {
+//                getLogger().severe("Configuration could not be loaded, disabling...");
+//                Bukkit.getPluginManager().disablePlugin(this);
+//                return;
+//            }
+//
+//            Configuration.Config.printChanges();
+//            Configuration.Notices.loadAndPrintChanges();
 
             getCommand("noencryption").setExecutor(new MainCommand());
             getCommand("noencryption").setTabCompleter(new MainCommand());
 
-            startTasks();
+            taskManager.startTasks();
 
-            Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
+            Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
+            Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
 
-            if (ConfigurationHandler.Config.doAutoUpdateCheck())
-                UpdateChecker.check(
-                        () -> {
-                            logger().info("You are running an old version of NoEncryption.");
-                            logger().info("It is recommended to update to the latest version");
-                            logger().info("for the best experience. The update can be found here:");
-                            logger().info(UpdateChecker.updateUrl.toString());
-                        },
-                        () -> {
-                            logger().info("Your NoEncryption version is up-to-date");
-                        },
-                        () -> {
-                            logger().info("Could not check for the latest version of NoEncryption.");
-                            logger().info("It is recommended to update to the latest version");
-                            logger().info("for the best experience. The update can be found here:");
-                            logger().info(UpdateChecker.updateUrl.toString());
-                        }
-                );
+            if (true) {
+                // TODO (Ineanto, 08/09/2025):  check for auto update
+//                UpdateChecker.check(
+//                        () -> {
+//                            getLogger().info("You are running an old version of NoEncryption.");
+//                            getLogger().info("It is recommended to update to the latest version");
+//                            getLogger().info("for the best experience. The update can be found here:");
+//                            getLogger().info(UpdateChecker.updateUrl.toString());
+//                        },
+//                        () -> {
+//                            getLogger().info("Your NoEncryption version is up-to-date");
+//                        },
+//                        () -> {
+//                            getLogger().info("Could not check for the latest version of NoEncryption.");
+//                            getLogger().info("It is recommended to update to the latest version");
+//                            getLogger().info("for the best experience. The update can be found here:");
+//                            getLogger().info(UpdateChecker.updateUrl.toString());
+//                        }
+//                );
+            }
 
-            logger().info("Compatibility successful!");
-            logger().info("If you used /reload to update NoEncryption, your players need to disconnect and join back");
+            getLogger().info("Compatibility successful!");
+            getLogger().info("If you used /reload to update NoEncryption, your players need to disconnect and join back");
 
             if (Bukkit.getPluginManager().getPlugin("Essentials") != null) {
-                logger().info("=====================================================================");
-                logger().info("We are aware of the Essentials warning about severe issues.");
-                logger().info("Currently, there are no known issues relating to NoEncryption and Essentials.");
-                logger().info("If you encounter any issues, please create an issue on the NoEncryption GitHub at");
-                logger().info("https://github.com/Doclic/NoEncryption/issues");
+                getLogger().info("=====================================================================");
+                getLogger().info("We are aware of the Essentials warning about severe issues.");
+                getLogger().info("Currently, there are no known issues relating to NoEncryption and Essentials.");
+                getLogger().info("If you encounter any issues, please create an issue on the NoEncryption GitHub at");
+                getLogger().info("https://github.com/Doclic/NoEncryption/issues");
             }
 
             if (Bukkit.getPluginManager().getPlugin("ViaVersion") != null) {
-                logger().info("=====================================================================");
-                logger().info("We are aware of the ViaVersion warning about severe issues.");
-                logger().info("Currently, there are no known issues relating to NoEncryption and ViaVersion.");
-                logger().info("If you encounter any issues, please create an issue on the NoEncryption GitHub at");
-                logger().info("https://github.com/Doclic/NoEncryption/issues");
+                getLogger().info("=====================================================================");
+                getLogger().info("We are aware of the ViaVersion warning about severe issues.");
+                getLogger().info("Currently, there are no known issues relating to NoEncryption and ViaVersion.");
+                getLogger().info("If you encounter any issues, please create an issue on the NoEncryption GitHub at");
+                getLogger().info("https://github.com/Doclic/NoEncryption/issues");
             }
 
-            InternalMetrics.loadMetrics();
+            //InternalMetrics.loadMetrics();
         } else {
-            logger().severe("Failed to setup NoEncryption's compatibility!");
-            logger().severe("Your server version (" + Compatibility.SERVER_VERSION + ") is not compatible with this JAR! Check here for the latest version: https://github.com/Doclic/NoEncryption/releases/latest");
+            getLogger().severe("Failed to setup NoEncryption's compatibility!");
+            getLogger().severe("Your server version (" + compatibility.getVersionStripped() + ") is not compatible with this JAR! Check here for the latest version: https://github.com/Doclic/NoEncryption/releases/latest");
 
             Bukkit.getPluginManager().disablePlugin(this);
         }
@@ -101,37 +110,7 @@ public final class NoEncryptionX extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        stopTasks();
-    }
-
-    private static void startTasks() {
-        playerGarbageCollectorTask = PlayerChannelGC.start();
-    }
-
-    private static void stopTasks() {
-        PlayerChannelGC.stop(playerGarbageCollectorTask);
-    }
-
-    public static NoEncryptionX plugin() {
-        return plugin;
-    }
-
-    public static Logger logger() {
-        return logger;
-    }
-
-    public String getRootFolder() {
-        return this.getDataFolder().getPath();
-    }
-
-    public static boolean usesKyoriChat() {
-        try {
-            Class.forName("net.kyori.adventure.Adventure");
-
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
+        taskManager.stopTasks();
     }
 
     public static void addPlayerChannel(Channel channel) {
@@ -144,5 +123,21 @@ public final class NoEncryptionX extends JavaPlugin {
         List<Channel> modified = new ArrayList<>(activePlayerChannels);
         modified.remove(channel);
         activePlayerChannels = Collections.unmodifiableList(modified);
+    }
+
+    //.............
+    // ADDED IN 1.19.3
+    //.............
+
+    public static void addServerChannel(Channel channel) {
+        List<Channel> modified = new ArrayList<>(activeServerChannels);
+        modified.add(channel);
+        activeServerChannels = Collections.unmodifiableList(modified);
+    }
+
+    public static void removeServerChannel(Channel channel) {
+        List<Channel> modified = new ArrayList<>(activeServerChannels);
+        modified.remove(channel);
+        activeServerChannels = Collections.unmodifiableList(modified);
     }
 }
