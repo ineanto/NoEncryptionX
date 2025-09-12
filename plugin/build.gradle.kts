@@ -13,7 +13,7 @@ val versions = listOf("1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4", "1.20.1")
 
 dependencies {
     versions.forEach {
-        implementation(project(":$it"))
+        implementation(project(":$it", configuration = "reobf"))
     }
 
     // TODO (Ineanto, 08/09/2025): Add adventure to libs.versions.toml
