@@ -17,7 +17,7 @@ repositories {
 val libs = extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
 
 dependencies {
-    compileOnly(libs.findLibrary("spigot-api-one-twentyone-eight").get())
+    compileOnly(libs.findLibrary("spigot-api-one-nineteen").get())
     compileOnly(libs.findLibrary("netty-transport").get())
 
     compileOnly(libs.findLibrary("lombok").get())
