@@ -1,7 +1,7 @@
-# NoEncryptionX
+<img style="margin: auto; display: block;" src="LOGO.png"  alt=""/>
 
-<img style="float: right" src="https://user-images.githubusercontent.com/79623093/223548813-7c3e30dc-8cd9-41c0-a704-35d48c16b428.png"  alt=""/>
-NoEncryptionX is a Minecraft server plugin originally developed by <a href="https://github.com/Doclic/" target="_blank">Doclic</a> and <a href="https://github.com/V1nc3ntWasTaken/" target="_blank">V1nc3ntWasTaken</a>,
+<br>
+<b>NoEncryptionX</b> is a Minecraft server plugin originally developed by <a href="https://github.com/Doclic/" target="_blank">Doclic</a> and <a href="https://github.com/V1nc3ntWasTaken/" target="_blank">V1nc3ntWasTaken</a>,
 now updated and maintained for newer versions by <a href="https://github.com/ineanto/" target="_blank">Ineanto</a>
 (me!).
 
@@ -52,7 +52,8 @@ and dropping certain contents such as the signature and the salt.
 ## How can I contribute to NoEncryptionX?
 
 You can make contributions to the NoEncryptionX project through the use
-of <a href="https://github.com/Inenato/NoEncryptionX/pulls">Pull Requests</a>. When making a contribution, make sure that
+of <a href="https://github.com/Inenato/NoEncryptionX/pulls">Pull Requests</a>. When making a contribution, make sure
+that
 you review all the checks in the PR.
 
 <details>
