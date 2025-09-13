@@ -10,8 +10,8 @@ version = "6.0"
 description = "NoEncryptionX - Plugin"
 
 val versions = listOf(
-    "1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4",
-    "1.20.1", "1.20.2"
+    "v1_19_R1", "v1_19_R2", "v1_19_R3",
+    "v1_20_R1", "v1_20_R2",
 )
 
 dependencies {

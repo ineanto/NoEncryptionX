@@ -4,7 +4,8 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class CompatibilityProvider {
@@ -15,16 +16,14 @@ public class CompatibilityProvider {
 
     private final Logger logger = Logger.getLogger("NoEncryptionX/Compat");
 
-    @Getter
-    private final List<String> supportedVersions = List.of(
-            "1.19",
-            "1.19.1",
-            "1.19.2",
-            "1.19.3",
-            "1.19.4",
-            "1.20",
-            "1.20.1",
-            "1.20.2"
+    private final Map<Set<String>, String> versionsToPackage = Map.of(
+            Set.of("1.19", "1.19.1", "1.19.2"), "v1_19_R1",
+            Set.of("1.19.3"), "v1_19_R2",
+            Set.of("1.19.4"), "v1_19_R3",
+            Set.of("1.20", "1.20.1"), "v1_20_R1",
+            Set.of("1.20.2"), "v1_20_R2",
+            Set.of("1.20.3", "1.20.4"), "v1_20_R3",
+            Set.of("1.20.5", "1.20.6"), "v1_20_R4"
     );
 
     public void setup() {
