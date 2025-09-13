@@ -5,10 +5,8 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public abstract class PlayerChannel {
-    public abstract Channel getChannel(Player player) throws NoSuchFieldException, IllegalAccessException;
+public interface PlayerChannel {
+    Channel getChannel(Player player);
 
-    public abstract List<?> getServerConnections();
-
-    public abstract boolean setChannelFieldAccessible() throws NoSuchFieldException, IllegalAccessException;
+    List<?> getServerConnections();
 }

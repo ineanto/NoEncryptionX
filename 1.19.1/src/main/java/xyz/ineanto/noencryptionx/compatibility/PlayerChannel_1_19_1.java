@@ -11,7 +11,8 @@ import org.bukkit.entity.Player;
 import java.util.Collections;
 import java.util.List;
 
-public class PlayerChannel_1_19_1 extends PlayerChannel {
+public class PlayerChannel_1_19_1 implements PlayerChannel {
+    @Override
     public Channel getChannel(Player player) {
         final ServerPlayer serverPlayer = ((CraftPlayer) player).getHandle();
         return serverPlayer.connection.connection.channel;
@@ -26,10 +27,5 @@ public class PlayerChannel_1_19_1 extends PlayerChannel {
         }
 
         return Collections.emptyList();
-    }
-
-    @Override
-    public boolean setChannelFieldAccessible() throws NoSuchFieldException, IllegalAccessException {
-        return false;
     }
 }

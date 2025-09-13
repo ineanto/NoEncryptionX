@@ -20,7 +20,7 @@ import java.util.Objects;
  * net.minecraft.server.network.ServerGamePacketListenerImpl -> alp:
  *     net.minecraft.network.Connection connection -> c
  */
-public class PlayerChannel_1_20_2 extends PlayerChannel {
+public class PlayerChannel_1_20_2 implements PlayerChannel {
     @Override
     public Channel getChannel(Player player) throws NoSuchFieldException, IllegalAccessException {
         ServerPlayer playerHandle = ((CraftPlayer) player).getHandle();
