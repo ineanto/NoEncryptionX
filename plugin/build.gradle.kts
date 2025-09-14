@@ -15,9 +15,16 @@ val versions = listOf(
 )
 
 dependencies {
-    versions.forEach {
-        implementation(project(":$it", configuration = "reobf"))
-    }
+    // Doing a for loop here causes Gradle to NOT import the dependencies correctly???
+    // So we have to manually add them one by one.
+    // fuck my life.
+    implementation(project(":v1_19_R1", configuration = "reobf"))
+    implementation(project(":v1_19_R2", configuration = "reobf"))
+    implementation(project(":v1_19_R3", configuration = "reobf"))
+    implementation(project(":v1_20_R1", configuration = "reobf"))
+    implementation(project(":v1_20_R2", configuration = "reobf"))
+    implementation(project(":v1_20_R3", configuration = "reobf"))
+    implementation(project(":v1_20_R4", configuration = "reobf"))
 
     // TODO (Ineanto, 08/09/2025): Add adventure to libs.versions.toml
     implementation("net.kyori:adventure-api:4.24.0")
