@@ -10,7 +10,9 @@ import xyz.ineanto.noencryptionx.config.Configuration;
 import xyz.ineanto.noencryptionx.event.PlayerJoinListener;
 import xyz.ineanto.noencryptionx.event.PlayerQuitListener;
 import xyz.ineanto.noencryptionx.task.TaskManager;
+import xyz.ineanto.noencryptionx.updater.PluginUpdater;
 
+import java.net.MalformedURLException;
 import java.util.*;
 
 public final class NoEncryptionX extends JavaPlugin {
@@ -59,23 +61,19 @@ public final class NoEncryptionX extends JavaPlugin {
             Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
 
             if (configuration.isDoAutoUpdates()) {
-//                UpdateChecker.check(
-//                        () -> {
-//                            getLogger().info("You are running an old version of NoEncryption.");
-//                            getLogger().info("It is recommended to update to the latest version");
-//                            getLogger().info("for the best experience. The update can be found here:");
-//                            getLogger().info(UpdateChecker.updateUrl.toString());
-//                        },
-//                        () -> {
-//                            getLogger().info("Your NoEncryption version is up-to-date");
-//                        },
-//                        () -> {
-//                            getLogger().info("Could not check for the latest version of NoEncryption.");
-//                            getLogger().info("It is recommended to update to the latest version");
-//                            getLogger().info("for the best experience. The update can be found here:");
-//                            getLogger().info(UpdateChecker.updateUrl.toString());
-//                        }
-//                );
+                try {
+                    final PluginUpdater pluginUpdater = new PluginUpdater();
+                    pluginUpdater.findUpdates(
+                            () -> {
+                                getLogger().info("You are running an outdated version of NoEncryptionX.");
+                                getLogger().info("Update here: " + pluginUpdater.getUpdateUrl());
+                            },
+                            () -> getLogger().info("Are are running an unreleased (or development) version of NoEncryptionX?"),
+                            () -> getLogger().info("Could not find the latest version of NoEncryptionX.")
+                    );
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             if (Bukkit.getPluginManager().getPlugin("Essentials") != null) {

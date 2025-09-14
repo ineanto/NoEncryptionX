@@ -27,6 +27,7 @@ dependencies {
     implementation(project(":v1_20_R4", configuration = "reobf"))
 
     implementation(libs.adventure)
+    implementation(libs.json)
     implementation(project(":common"))
 }
 
