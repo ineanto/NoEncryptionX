@@ -6,7 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.ineanto.noencryptionx.commands.MainCommand;
 import xyz.ineanto.noencryptionx.compatibility.CompatibilityProvider;
-import xyz.ineanto.noencryptionx.config.FileMgmt;
+import xyz.ineanto.noencryptionx.config.Configuration;
 import xyz.ineanto.noencryptionx.event.PlayerJoinListener;
 import xyz.ineanto.noencryptionx.event.PlayerQuitListener;
 import xyz.ineanto.noencryptionx.task.TaskManager;
@@ -20,6 +20,9 @@ public final class NoEncryptionX extends JavaPlugin {
     @Getter
     private final CompatibilityProvider compatibility = new CompatibilityProvider();
     private final TaskManager taskManager = new TaskManager(this);
+
+    @Getter
+    private final Configuration configuration = new Configuration(this);
 
     public static Map<UUID, Channel> serverChannels;
     public static List<Channel> activePlayerChannels;
@@ -36,7 +39,6 @@ public final class NoEncryptionX extends JavaPlugin {
         activeServerChannels = Collections.unmodifiableList(new ArrayList<>());
 
         if (compatibility.setup()) {
-            FileMgmt.initialize(this);
 //            Configuration.initialize(this);
 //
 //            if (!Configuration.loadSettings()) {
@@ -56,8 +58,7 @@ public final class NoEncryptionX extends JavaPlugin {
             Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
             Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
 
-            if (true) {
-                // TODO (Ineanto, 08/09/2025):  check for auto update
+            if (configuration.isDoAutoUpdates()) {
 //                UpdateChecker.check(
 //                        () -> {
 //                            getLogger().info("You are running an old version of NoEncryption.");

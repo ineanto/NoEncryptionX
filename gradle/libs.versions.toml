@@ -5,8 +5,10 @@ paper-userdev = { id = "io.papermc.paperweight.userdev", version = "2.0.0-beta.1
 lombok = "1.18.40"
 netty-transport = "4.1.90.Final"
 spigot-one-nineteen = "1.19-R0.1-SNAPSHOT"
+adventure = "4.24.0"
 
 [libraries]
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 netty-transport = { module = "io.netty:netty-transport", version.ref = "netty-transport" }
 spigot-api-one-nineteen = { module = "org.spigotmc:spigot-api", version.ref = "spigot-one-nineteen" }
+adventure = { module = "net.kyori:adventure-api", version.ref = "adventure" }
