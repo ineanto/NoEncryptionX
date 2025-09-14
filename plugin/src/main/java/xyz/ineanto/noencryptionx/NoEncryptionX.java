@@ -35,9 +35,7 @@ public final class NoEncryptionX extends JavaPlugin {
         activePlayerChannels = Collections.unmodifiableList(new ArrayList<>());
         activeServerChannels = Collections.unmodifiableList(new ArrayList<>());
 
-        compatibility.setup();
-
-        if (true) { // TODO (Ineanto, 08/09/2025):  check if server is compatible
+        if (compatibility.setup()) {
             FileMgmt.initialize(this);
 //            Configuration.initialize(this);
 //
@@ -79,15 +77,12 @@ public final class NoEncryptionX extends JavaPlugin {
 //                );
             }
 
-            getLogger().info("Compatibility successful!");
-            getLogger().info("If you used /reload to update NoEncryption, your players need to disconnect and join back");
-
             if (Bukkit.getPluginManager().getPlugin("Essentials") != null) {
                 getLogger().info("=====================================================================");
                 getLogger().info("We are aware of the Essentials warning about severe issues.");
                 getLogger().info("Currently, there are no known issues relating to NoEncryption and Essentials.");
                 getLogger().info("If you encounter any issues, please create an issue on the NoEncryption GitHub at");
-                getLogger().info("https://github.com/Doclic/NoEncryption/issues");
+                getLogger().info("https://github.com/ineanto/NoEncryptionX/issues");
             }
 
             if (Bukkit.getPluginManager().getPlugin("ViaVersion") != null) {
@@ -95,13 +90,14 @@ public final class NoEncryptionX extends JavaPlugin {
                 getLogger().info("We are aware of the ViaVersion warning about severe issues.");
                 getLogger().info("Currently, there are no known issues relating to NoEncryption and ViaVersion.");
                 getLogger().info("If you encounter any issues, please create an issue on the NoEncryption GitHub at");
-                getLogger().info("https://github.com/Doclic/NoEncryption/issues");
+                getLogger().info("https://github.com/ineanto/NoEncryptionX/issues");
             }
 
             //InternalMetrics.loadMetrics();
         } else {
-            getLogger().severe("Failed to setup NoEncryption's compatibility!");
-            getLogger().severe("Your server version (" + compatibility.getVersionStripped() + ") is not compatible with this JAR! Check here for the latest version: https://github.com/Doclic/NoEncryption/releases/latest");
+            getLogger().severe("Failed to setup NoEncryptionX's compatibility!");
+            getLogger().severe("Your server version (" + compatibility.getVersionStripped() + ") is not compatible.");
+            getLogger().severe("Check here for the latest version: https://github.com/ineanto/NoEncryptionX/releases/latest");
 
             Bukkit.getPluginManager().disablePlugin(this);
         }
