@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.ineanto.noencryptionx.commands.MainCommand;
 import xyz.ineanto.noencryptionx.compatibility.CompatibilityProvider;
+import xyz.ineanto.noencryptionx.compatibility.MinecraftVersion;
 import xyz.ineanto.noencryptionx.config.Configuration;
 import xyz.ineanto.noencryptionx.event.PlayerJoinListener;
 import xyz.ineanto.noencryptionx.event.PlayerQuitListener;
@@ -95,7 +96,7 @@ public final class NoEncryptionX extends JavaPlugin {
             //InternalMetrics.loadMetrics();
         } else {
             getLogger().severe("Failed to setup NoEncryptionX's compatibility!");
-            getLogger().severe("Your server version (" + compatibility.getVersionStripped() + ") is not compatible.");
+            getLogger().severe("Your server version (" + MinecraftVersion.getVersionStripped() + ") is not compatible.");
             getLogger().severe("Check here for the latest version: https://github.com/ineanto/NoEncryptionX/releases/latest");
 
             Bukkit.getPluginManager().disablePlugin(this);

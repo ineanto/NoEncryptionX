@@ -43,17 +43,13 @@ public class CompatibilityProvider {
         return true;
     }
 
-    public String getVersionStripped() {
-        return Bukkit.getBukkitVersion().split("-")[0];
-    }
-
     private CompatibilityPair<PlayerChannel, PacketChannelHandler> getCompatibilityPair() {
         // A bit complicated, but shouldn't be updated anytime soon so that's ok?
         final AtomicReference<CompatibilityPair<PlayerChannel, PacketChannelHandler>> tempPair = new AtomicReference<>(null);
 
         versionsToCompatibility.forEach((versions, compatibilityPair) ->
         {
-            if (versions.stream().anyMatch(version -> version.equals(getVersionStripped()))) {
+            if (versions.stream().anyMatch(version -> version.equals(MinecraftVersion.getVersionStripped()))) {
                 tempPair.set(compatibilityPair);
             }
         });

@@ -15,6 +15,10 @@ public enum MinecraftVersion {
         this.versions = versions;
     }
 
+    public static String getVersionStripped() {
+        return Bukkit.getBukkitVersion().split("-")[0];
+    }
+
     public static MinecraftVersion current() {
         final String version = Bukkit.getBukkitVersion().split("-")[0];
 
