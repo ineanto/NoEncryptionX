@@ -8,10 +8,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import xyz.ineanto.noencryptionx.NoEncryptionX;
 import xyz.ineanto.noencryptionx.compatibility.CompatibilityProvider;
+import xyz.ineanto.noencryptionx.compatibility.MinecraftVersion;
 
 public class PlayerJoinListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerJoin(PlayerJoinEvent e) throws NoSuchFieldException, IllegalAccessException {
+    public void onPlayerJoin(PlayerJoinEvent e) {
         final Player player = e.getPlayer();
         final CompatibilityProvider compatibility = NoEncryptionX.getInstance().getCompatibility();
 
@@ -20,7 +21,8 @@ public class PlayerJoinListener implements Listener {
         final ChannelDuplexHandler handler = new ChannelDuplexHandler() {
             @Override
             public void write(ChannelHandlerContext channelHandlerContext, Object packet, ChannelPromise promise) throws Exception {
-                Object newPacket = compatibility.getPacketChannelHandler().writePacket(channelHandlerContext, packet, promise, true);
+                final boolean playerPipe = MinecraftVersion.current() == MinecraftVersion.v1_19;
+                final Object newPacket = compatibility.getPacketChannelHandler().writePacket(channelHandlerContext, packet, promise, playerPipe);
                 super.write(channelHandlerContext, newPacket, promise);
             }
         };
