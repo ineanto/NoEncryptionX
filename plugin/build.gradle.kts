@@ -4,9 +4,6 @@ plugins {
     id("xyz.jpenilla.run-paper") version "3.0.0"
 }
 
-group = "xyz.ineanto.noencryptionx"
-version = "6.0"
-
 description = "NoEncryptionX - Plugin"
 
 dependencies {
@@ -43,9 +40,11 @@ tasks {
 
     processResources {
         from("src/main/resources")
+        val projectVersion = project.version.toString()
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        inputs.property("version", project.version)
         filesMatching("*.yml") {
-            expand("version" to "6.0")
+            expand(mapOf("version" to projectVersion))
         }
     }
 }

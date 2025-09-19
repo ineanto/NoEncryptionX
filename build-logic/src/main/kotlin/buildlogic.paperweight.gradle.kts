@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "xyz.ineanto"
-version = "6.0"
+version = "1.0.0-SNAPSHOT"
 
 java {
     toolchain {
