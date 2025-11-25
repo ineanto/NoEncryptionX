@@ -10,7 +10,7 @@ by safely removing encryption.
 
 ## What versions does NoEncryptionX support?
 
-NoEncryptionX supports versions <code>1.19</code> through <code>1.21.8</code>.
+NoEncryptionX supports versions <code>1.19</code> through <code>1.21.11</code>.
 
 ## How does NoEncryptionX work?
 
