@@ -26,7 +26,7 @@ public class CompatibilityProvider {
             entry(Set.of("1.20.2"), new CompatibilityPair<>(new PlayerChannel_1_20_R2(), new PacketChannelHandler_1_20_R2())),
             entry(Set.of("1.20.3", "1.20.4"), new CompatibilityPair<>(new PlayerChannel_1_20_R3(), new PacketChannelHandler_1_20_R3())),
             entry(Set.of("1.20.5", "1.20.6"), new CompatibilityPair<>(new PlayerChannel_1_20_R4(), new PacketChannelHandler_1_20_R4())),
-            entry(Set.of("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.7", "1.21.8"), new CompatibilityPair<>(new PlayerChannel_1_21(), new PacketChannelHandler_1_21()))
+            entry(Set.of("1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11"), new CompatibilityPair<>(new PlayerChannel_1_21(), new PacketChannelHandler_1_21()))
     );
 
     public boolean setup() {
